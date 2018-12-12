@@ -13,13 +13,29 @@ const outputDir = "/home/vassar/Documents/python/performance files/Output Files/
 
 export function start(dataFileDir) {
     console.log("Creating file reader obj");
-    const fileReader = new CustomFileReader({}, dataFileDir);
-    // console.log("Opening reader stream");
-    // fileReader.createStream(dataFileDir);
+    // const fileReader = new CustomFileReader({}, dataFileDir);
 
-    const fileWriter = new CustomFileWriter({}, outputDir);
+    // const fileWriter = new CustomFileWriter({}, outputDir);
 
-    fileReader.pipe(fileWriter);
+    // fileReader.pipe(fileWriter);
+
+    // Create input files logic started
+    if(process.argv.length < 4) {
+        console.log("Not Enough args")
+        return;
+    }
+
+    const num = process.argv[2];
+    const sy = parseInt(process.argv[3]);
+    const ey = parseInt(process.argv[4]);
+
+    const delAllFiles = Boolean(process.argv[5]);
+
+    require('./generateFiles')
+       .createDataFiles('C:\\Users\\akhileshgoutam\\Documents\\Practice\\performance-evaluation-helper\\input-files\\'
+            , num, sy, ey);
+
+    // Logic Ends
 
     // const wrapper = new SourceWrapper();
 
