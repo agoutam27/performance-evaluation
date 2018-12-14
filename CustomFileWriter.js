@@ -15,11 +15,11 @@ class CustomFileWriter extends Writable {
     }
 
     _write(chunk, encoding, callback) {
-        console.log("-");
 
         encoding = encoding || 'utf8';
   
         if (Buffer.isBuffer(chunk)) {
+            console.log("chunk is buffer")
             if (encoding == 'buffer') {
                 chunk = chunk.toString(); // utf8
                 encoding = 'utf8';
@@ -46,7 +46,7 @@ class CustomFileWriter extends Writable {
         this._partialLine = lines.pop();
 
         this._lastChunkEndedWithCR = chunk[chunk.length - 1] == '\r';
-        console.log("lines = ", lines)
+
         for(let i = 0; i < lines.length ; i++) {
 
             let splittedLine = lines[i].split(",");
@@ -64,7 +64,7 @@ class CustomFileWriter extends Writable {
             if(!this._fsWriteStreams[year]) {
                 this._fsWriteStreams[year] = fs.createWriteStream(this._outputFileDir + year + ".csv");
             }
-            console.log(date, new Date(year, 0, 1));
+
             this._fsWriteStreams[year].write(
                 date.getTime() === new Date(year, 0, 1).getTime() 
                 ? "\n" + file + "," + data 
